@@ -37,7 +37,7 @@ export function ControllerInput({ control, name, rules, startIcon, endIcon, labe
                 input={
                     <div className="flex items-center h-full w-full">
                         {startIcon ?? startIcon}
-                        <input className="flex  bg-transparent w-full h-full hover:outline-none  hover:bg-transparent focus:bg-transparent focus:outline-none" {...field} {...rest} type={typeInput} />
+                        <input className="flex appearance-none  border-0 focus:ring-0  bg-transparent focus:outline-none w-full h-full" {...field} {...rest} type={typeInput} />
                         {endIcon ?? endIcon}
                         {rest.type === "password" ? typeInput === 'password' ? <FaEyeSlash onClick={() => setTypeInput('text')} /> : <FaEye onClick={() => setTypeInput('password')} /> : null}
                     </div >
