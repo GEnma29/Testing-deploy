@@ -20,7 +20,7 @@ export default function Form<T extends FieldValues>({ defaultValues, resolver, c
                         ? React.createElement(child.type, {
                             ...{
                                 ...child.props,
-                                //register: methods.register,
+                                // register: methods.register,
                                 control: methods.control,
                                 key: child.props.name,
                             },

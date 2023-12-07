@@ -1,5 +1,6 @@
 export const PublicRoutes = {
-    LOGIN: 'login'
+    LOGIN: 'login',
+    RECOVER_PASSWORD: 'recover'
 }
 
 export const PrivateRoutes = {

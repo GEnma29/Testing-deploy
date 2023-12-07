@@ -9,13 +9,13 @@ const Layout: React.FC<{
 }> = ({ form, element }) => {
     return (
         <div className='flex flex-col w-full h-full'>
-            <div className='flex relative w-full items-center justify-start'>
+            <div className='flex relative items-center justify-center w-full lg:items-center lg:justify-start'>
                 <Logo className='flex mr-3' />
                 <img className='flex' src={name} />
             </div>
-            <div className='flex flex-row h-full'>
+            <div className='flex w-full flex-col sm:justify-center sm:items-center lg:flex-row h-full'>
                 <div className='flex w-full h-full items-center justify-center'>{form}</div>
-                <div className='flex w-full h-full'>{element}</div>
+                {element}
             </div>
         </div>
     )

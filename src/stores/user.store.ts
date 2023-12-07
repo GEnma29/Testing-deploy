@@ -1,17 +1,35 @@
 import { create } from 'zustand'
 
+
+type UserRole = {
+    public: string[],
+    funkart: string[],
+}
 interface userState {
   name: string
-  token: string
-  role: string
+  last_name: string
+  secret: string
+  role: UserRole,
+  email: string,
   isAuth: boolean,
+  login: (data: { name: string, last_name:string,  secret: string, role: UserRole, email: string }) => void,
+  logout: () => void,
 }
 
 export const userStore = create<userState>()((set) => ({
   name: '',
-  role: '',
-  token: '',
+  email: '',
+  role: {
+    public: [],
+    funkart: [],
+  },
+  last_name: '',
+  secret:'',
   isAuth: false,
-  userLogin:({name, token, role }:{ name: string, token: string, role: string})=> 
-  set({name, token, role , isAuth: true})
+  login:({name, last_name, secret, role, email }:{ name: string, last_name: string, email: string, secret: string, role:UserRole})=> set({name, last_name, email,  secret, role  , isAuth: true}),
+  logout:()=> set({name: '', secret: '', role: {
+    public: [],
+    funkart: [],
+  }, isAuth: false})
+  
 }))

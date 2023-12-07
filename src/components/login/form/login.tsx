@@ -4,6 +4,11 @@ import { object, string } from 'yup';
 import Form from '../../forms/from'
 import { ControllerInput } from '../../forms/inputs/input.component';
 import { Button } from '../../common';
+import { authService } from '../../../services';
+import { adapterAccessToken } from '../../../adapters/auth.adapters';
+import { userStore } from '../../../stores/user.store';
+import { useNavigate } from 'react-router-dom';
+import { PrivateRoutes, PublicRoutes } from '../../../models';
 
 type FormLogin = {
   email: string,
@@ -11,6 +16,12 @@ type FormLogin = {
 }
 
 const LoginForm: React.FC = () => {
+  const navigate = useNavigate()
+  const saveUser = userStore((state) => state.login)
+
+  const goToRecoveryPassword = () => {
+    navigate(`/${PublicRoutes.RECOVER_PASSWORD}`, { replace: true })
+  }
   const defaultValues = {
     email: '',
     password: '',
@@ -20,10 +31,23 @@ const LoginForm: React.FC = () => {
     'password': string().required(),
   })
 
-  const onSubmit = (data: FormLogin) => console.log(data)
+  const onSubmit = async (data: FormLogin) => {
+    const token = await authService({ email: data.email, password: data.password })
+    //TODO use custom hook localStorage 
+    localStorage.setItem('access_token', token)
+    // destruct object
+    const { secret, name, last_name, roles, email } = adapterAccessToken(token);
+    // save user
+    saveUser({ secret, name, last_name, email, role: { public: roles.public, funkart: roles.funkart } })
+    // navigate
+    navigate(`/${PrivateRoutes.PRIVATE}`, { replace: true });
+
+
+  }
   const resolver = yupResolver(validationSchema)
   return (
-    <div className='flex w-80  f-full'>
+    <div className='flex flex-col justify-center items-center w-full  lg:w-80  f-full'>
+      <h1 className='flex mt-4 text-3xl font-normal text-primary-300 w-full justify-center items-center lg:mt-16 lg:items-start lg:justify-start '> Inicia sesión</h1>
       <Form onSubmit={onSubmit} defaultValues={defaultValues} resolver={resolver}>
         <ControllerInput label={<p className='flex font-normal text-black-300'>Correo</p>} name='email' />
         <ControllerInput label={<p className='flex font-normal text-black-300'>Contraseña</p>} name='password' type='password' />
@@ -35,6 +59,9 @@ const LoginForm: React.FC = () => {
           <Button type='submit'>
             Submit
           </Button>
+        </div>
+        <div className='flex my-2'>
+          <p>Si olvidaste tu contraseña <a className='underline	' onClick={goToRecoveryPassword} href={''}>Clickea aquí</a></p>
         </div>
       </Form>
     </div>
