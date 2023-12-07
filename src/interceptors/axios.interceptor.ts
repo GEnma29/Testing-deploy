@@ -1,10 +1,8 @@
 import axios, { AxiosRequestConfig } from "axios"
-
-
-
+import { SnackbarUtilities } from "../utilities/snackbar-manager";
+import { getValidationError } from "../utilities/get-validation-error";
 
 export const AxiosInterceptor = () => {
-   // saveInLocalStorage(LocalStorageKeys.TOKEN, '123123123123');
    const updateHeader = (request: AxiosRequestConfig) => {
     const token = localStorage.getItem('access_token')
     const newHeaders = {
@@ -23,11 +21,11 @@ export const AxiosInterceptor = () => {
     axios.interceptors.response.use(
       (response) => {
         console.log('response', response);
-      //  SnackbarUtilities.success('Success');
+        SnackbarUtilities.success('Success');
         return response;
       },
       (error) => {
-      //  SnackbarUtilities.error(getValidationError(error.code));
+       SnackbarUtilities.error(getValidationError(error.code));
         return Promise.reject(error);
       }
     );

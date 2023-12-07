@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useState } from 'react';
 
 const baseURL = import.meta.env.VITE_REACT_APP_BASEURL 
 const AuthInstance = axios.create({
@@ -12,14 +13,17 @@ const AuthInstance = axios.create({
     }
   }
 
-export const authService =  async ({email, password}:{ email: string , password: string}) => {
-    const apiUrl = import.meta.env.VITE_REACT_APP_BASEURL;
-    console.log('url', apiUrl);
-
+type  ResponseLogin = {
+  access_token: string
+}
+export const authService =  async ({email, password}:{ email: string , password: string}) : Promise<ResponseLogin> => {
   const {data} = await AuthInstance.post<Login>('/login', {
         email,
         password
     })
-    return data.data.access_token
+    return {
+      access_token: data.data.access_token,
+
+    }
 
 }

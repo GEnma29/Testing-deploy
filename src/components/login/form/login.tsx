@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup';
 import { object, string } from 'yup';
 import Form from '../../forms/from'
@@ -9,6 +9,7 @@ import { adapterAccessToken } from '../../../adapters/auth.adapters';
 import { userStore } from '../../../stores/user.store';
 import { useNavigate } from 'react-router-dom';
 import { PrivateRoutes, PublicRoutes } from '../../../models';
+import { persistLocalStorage } from '../../../utilities/local-storage';
 
 type FormLogin = {
   email: string,
@@ -18,6 +19,7 @@ type FormLogin = {
 const LoginForm: React.FC = () => {
   const navigate = useNavigate()
   const saveUser = userStore((state) => state.login)
+  const [loading, setLoading] = useState<boolean>(false)
 
   const goToRecoveryPassword = () => {
     navigate(`/${PublicRoutes.RECOVER_PASSWORD}`, { replace: true })
@@ -32,14 +34,16 @@ const LoginForm: React.FC = () => {
   })
 
   const onSubmit = async (data: FormLogin) => {
-    const token = await authService({ email: data.email, password: data.password })
+    setLoading(true)
+    const { access_token } = await authService({ email: data.email, password: data.password })
     //TODO use custom hook localStorage 
-    localStorage.setItem('access_token', token)
+    persistLocalStorage<string>('access_token', access_token)
     // destruct object
-    const { secret, name, last_name, roles, email } = adapterAccessToken(token);
+    const { secret, name, last_name, roles, email } = adapterAccessToken(access_token);
     // save user
     saveUser({ secret, name, last_name, email, role: { public: roles.public, funkart: roles.funkart } })
     // navigate
+    setLoading(false)
     navigate(`/${PrivateRoutes.PRIVATE}`, { replace: true });
 
 
@@ -56,8 +60,8 @@ const LoginForm: React.FC = () => {
           <p className='flex text-xs  ml-3 font-normal'>Recordar usuario</p>
         </div>
         <div className='flex mt-4 w-ful justify-center items-center'>
-          <Button type='submit'>
-            Submit
+          <Button disabled={loading} type='submit'>
+            {loading ? 'Cargando...' : 'Iniciar sesión'}
           </Button>
         </div>
         <div className='flex my-2'>

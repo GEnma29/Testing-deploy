@@ -1,7 +1,7 @@
 import React from 'react'
 
 // import { object, string, number, date, InferType } from 'yup';
-import Layout from '../../components/login/layout/layout';
+import Layout from '../../components/common/layout/layout';
 import { LoginForm } from '../../components/login/form';
 import { LoginFragment } from '../../components/login';
 

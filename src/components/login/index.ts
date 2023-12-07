@@ -1,3 +1,3 @@
 export * from './form';
-export * from './layout';
-export { default as LoginFragment } from './login.fragment';
+export * from '../common/layout';
+export { default as LoginFragment } from '../common/login.fragment';

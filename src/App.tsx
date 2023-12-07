@@ -6,6 +6,8 @@ import { PrivateRoutes, PublicRoutes } from './models'
 import { AuthGuard } from './guards'
 // utilities
 import { RoutesWithNotFound } from './utilities';
+import { SnackbarProvider } from 'notistack';
+import { SnackbarUtilitiesConfiguration } from './utilities/snackbar-manager';
 // lazy pages
 const Login = lazy(() => import('./pages/login/login.page'))
 const RecoverPassword = lazy(() => import('./pages/recover-password/recover-password.page'))
@@ -14,24 +16,27 @@ function App() {
   // TODO: create dark mode in tailwind 
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false)
   return (
-    <div className={isDarkMode ? ' p-2 min-h-screen bg-background-400' : ' p-2 min-h-screen bg-background-200'}>
-      <Suspense fallback={<>Cargando</>}>
-        <BrowserRouter>
-          {/* <Logout /> */}
-          <RoutesWithNotFound>
-            <Route path="/" element={<Navigate to={PrivateRoutes.PRIVATE} />} />
-            <Route path={PublicRoutes.LOGIN} element={<Login />} />
-            <Route path={PublicRoutes.RECOVER_PASSWORD} element={<RecoverPassword />} />
-            <Route element={<AuthGuard />}>
-              <Route path={`${PrivateRoutes.PRIVATE}/*`} element={<Private />} />
-            </Route>
-            {/* <Route element={<RoleGuard rol={Roles.ADMIN} />}>
+    <SnackbarProvider>
+      <SnackbarUtilitiesConfiguration />
+      <div className={isDarkMode ? ' p-2 min-h-screen bg-background-400' : ' p-2 min-h-screen bg-background-200'}>
+        <Suspense fallback={<>Cargando</>}>
+          <BrowserRouter>
+            {/* <Logout /> */}
+            <RoutesWithNotFound>
+              <Route path="/" element={<Navigate to={PrivateRoutes.PRIVATE} />} />
+              <Route path={PublicRoutes.LOGIN} element={<Login />} />
+              <Route path={PublicRoutes.RECOVER_PASSWORD} element={<RecoverPassword />} />
+              <Route element={<AuthGuard />}>
+                <Route path={`${PrivateRoutes.PRIVATE}/*`} element={<Private />} />
+              </Route>
+              {/* <Route element={<RoleGuard rol={Roles.ADMIN} />}>
               <Route path={PrivateRoutes.DASHBOARD} element={<Dashboard />} />
             </Route> */}
-          </RoutesWithNotFound>
-        </BrowserRouter>
-      </Suspense>
-    </div>
+            </RoutesWithNotFound>
+          </BrowserRouter>
+        </Suspense>
+      </div>
+    </SnackbarProvider>
   )
 }
 
