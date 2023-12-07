@@ -18,7 +18,7 @@ function App() {
   return (
     <SnackbarProvider>
       <SnackbarUtilitiesConfiguration />
-      <div className={isDarkMode ? ' p-2 min-h-screen bg-background-400' : ' p-2 min-h-screen bg-background-200'}>
+      <div className={isDarkMode ? 'min-h-screen bg-background-400' : 'min-h-screen bg-background-200'}>
         <Suspense fallback={<>Cargando</>}>
           <BrowserRouter>
             {/* <Logout /> */}

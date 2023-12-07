@@ -8,7 +8,7 @@ const Layout: React.FC<{
     element: React.ReactNode
 }> = ({ form, element }) => {
     return (
-        <div className='flex flex-col w-full h-full'>
+        <div className='flex p-2 flex-col w-full h-full'>
             <div className='flex relative items-center justify-center w-full lg:items-center lg:justify-start'>
                 <Logo className='flex mr-3' />
                 <img className='flex' src={name} />

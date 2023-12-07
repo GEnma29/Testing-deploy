@@ -17,3 +17,24 @@ input:-webkit-autofill:active{
     border: none;
     /* -webkit-box-shadow: 0 0 0 30px transparent inset !important; */
 }
+
+.tool-tip {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+    box-shadow: 0 0 10px #000;
+    font-size: .8rem;
+    border-radius: 8px;
+    top: 100%;
+    left: 12.5;
+    opacity: 0;
+    transition: opacity .3s;
+}
+:has(> .tool-tip) {
+    position: relative;
+
+}
+:has(> .tool-tip) :hover .tool-tip {
+    opacity: 1;
+}
