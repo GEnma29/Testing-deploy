@@ -1,28 +1,33 @@
 import React, { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { classNames } from '../../../utilities'
-import { Home, Menu, Events, PendingPayment, Manager, Protocol, Cashiers, HistoryEvents, HistoryPayments, Balance, ExchangeRate, PersonalInfo } from '../../../icons'
+import { Home, Menu, Events, PendingPayment, Manager, Protocol, Cashiers, HistoryEvents, HistoryPayments, Balance, ExchangeRate, PersonalInfo, LogOut } from '../../../icons'
 import { MdOutlineClose } from "react-icons/md";
 import sidebarLogo from '../../../assets/sidebarLogo.svg'
 import { PrivateRoutes } from '../../../models';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { userStore } from '../../../stores/user.store';
+
 
 
 
 
 const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [sidebarOpen, setSidebarOpen] = useState<boolean>(false)
-    const { last_name, name, role } = userStore((state) => state)
+    const { last_name, name, role, logout } = userStore((state) => state)
     const { pathname } = useLocation();
+    const navigate = useNavigate();
+    const gotTo = (route: string) => {
+        navigate(`/private/${route}`, { replace: true })
+    }
 
-    const validateRoute = (route: string, currentRoute: string) => {
-        return `/private/${route}` === currentRoute
+    const validateRoute = (routes: string[], currentRoute: string) => {
+        return routes.some(route => currentRoute.includes(route))
     }
 
     const navigation = [
-        { name: 'Home', href: '/', icon: Home, current: validateRoute(PrivateRoutes.DASHBOARD, pathname) },
-        { name: 'Eventos', href: PrivateRoutes.EVENTS, icon: Events, current: validateRoute(PrivateRoutes.EVENTS, pathname) },
+        { name: 'Home', href: PrivateRoutes.DASHBOARD, icon: Home, current: validateRoute([PrivateRoutes.DASHBOARD], pathname) },
+        { name: 'Eventos', href: PrivateRoutes.EVENTS, icon: Events, current: validateRoute([PrivateRoutes.EVENTS, PrivateRoutes.NEW_EVENT], pathname) },
         { name: 'Pagos Pendientes', href: '/payments/pending', icon: PendingPayment, current: false },
         { name: 'Manager Protocolo', href: '/manager', icon: Manager, current: false },
         { name: 'Protocolo', href: '/protocol', icon: Protocol, current: false },
@@ -91,7 +96,9 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({ children }) 
                                             {navigation.map((item) => (
                                                 <li key={item.name}>
                                                     <a
-                                                        href={item.href}
+                                                        onClick={() => gotTo(item.href)}
+
+
                                                         className={classNames(
                                                             item.current
                                                                 ? 'bg-gray-100 text-primary-300'
@@ -104,6 +111,10 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({ children }) 
                                                     </a>
                                                 </li>
                                             ))}
+                                            <div>
+
+                                            </div>
+                                            <LogOut onClick={() => logout()} />
                                         </ul>
                                     </nav>
                                 </div>
@@ -115,14 +126,14 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({ children }) 
 
             {/* Static sidebar for desktop */}
             <div className="hidden px-2 lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-24 lg:overflow-y-auto lg:bg-white lg:pb-4">
-                <div className="flex mt-1 h-20 shrink-0 items-center justify-center">
+                <div className="flex mt-1 h-14 shrink-0 items-center justify-center">
                     <img
-                        className="h-20 w-auto"
+                        className="h-14 w-auto"
                         src={sidebarLogo}
                         alt="show master"
                     />
                 </div>
-                <div className="divider m-1 p-0" />
+                <div className="divider m-0 p-0" />
                 <nav className="mx-2">
                     <ul role="list" className="flex flex-col items-center space-y-1">
                         {navigation.map((item) => (
@@ -140,6 +151,7 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({ children }) 
                                 </a>
                             </li>
                         ))}
+                        <LogOut onClick={() => logout()} />
                     </ul>
                 </nav>
             </div>
@@ -173,7 +185,7 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({ children }) 
 
             <main className="lg:pl-20">
                 <div className="xl:pl-96">
-                    <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">{children}</div>
+                    <div className="px-2 py-4 sm:px-6 lg:px-8 lg:py-6">{children}</div>
                 </div>
             </main>
         </div>

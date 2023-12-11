@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-
+import { persist, createJSONStorage } from 'zustand/middleware'
 
 type UserRole = {
     public: string[],
@@ -16,7 +16,7 @@ interface userState {
   logout: () => void,
 }
 
-export const userStore = create<userState>()((set) => ({
+export const userStore = create<userState>()(persist((set) => ({
   name: '',
   email: '',
   role: {
@@ -32,4 +32,7 @@ export const userStore = create<userState>()((set) => ({
     funkart: [],
   }, isAuth: false})
   
+}),{
+    name: 'user-storage',
+    storage: createJSONStorage(() => sessionStorage)
 }))

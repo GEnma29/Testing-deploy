@@ -1,7 +1,7 @@
-import axios from 'axios'
-import { useState } from 'react';
+import axios from 'axios';
 
 const baseURL = import.meta.env.VITE_REACT_APP_BASEURL 
+
 const AuthInstance = axios.create({
     baseURL: `${baseURL}/auth/api/auth`,
     timeout: 3000,
@@ -25,5 +25,4 @@ export const authService =  async ({email, password}:{ email: string , password:
       access_token: data.data.access_token,
 
     }
-
 }

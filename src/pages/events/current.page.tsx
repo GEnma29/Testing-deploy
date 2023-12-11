@@ -1,9 +1,9 @@
 import React from 'react'
-import DashboardLayout from '../../components/dashboard/layout/layout'
+import LayoutEvents from '../../components/events/layout/events'
 
 const CurrentEvents: React.FC = () => {
     return (
-        <DashboardLayout />
+        <LayoutEvents />
     )
 }
 

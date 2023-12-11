@@ -31,7 +31,7 @@ export const InputStyleAdapter: React.FC<InputStyleAdapterProps> = ({ fieldState
     }
     return <div className="flex my-2 flex-col w-full">
         {label ?? label}
-        <div className={`flex  p-3 h-14 border-solid border-2 rounded-lg ${style} `}>
+        <div className={`flex bg-white p-3 h-14 border-solid border-2 rounded-lg ${style} `}>
             {input}
         </div>
         {fieldState.error && <span className="flex ml-5 text-error-500">{fieldState?.error?.message}</span>}
