@@ -19,6 +19,7 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({ children }) 
     const { last_name, name, role, logout } = userStore((state) => state)
     const { pathname } = useLocation();
     const navigate = useNavigate();
+
     const gotTo = (route: string) => {
         navigate(`/private/${route}`, { replace: true })
     }
@@ -116,9 +117,9 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({ children }) 
                                             <div>
 
                                             </div>
-                                            <div className='flex p-2 items-center '>
-                                                <LogOut onClick={() => logout()} />
-                                                <p className='flex ml-2 text-primary-300'>Serrar Sesión</p>
+                                            <div onClick={() => logout()} className='flex p-2 items-center cursor-pointer '>
+                                                <LogOut />
+                                                <p className='flex ml-2 text-primary-300'>Cerrar Sesión</p>
                                             </div>
                                         </ul>
                                     </nav>
@@ -185,7 +186,7 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({ children }) 
 
             <main className="lg:pl-20">
                 <div className="xl:p-20">
-                    <div className="px-2 py-4 sm:px-6 lg:px-8 lg:py-6">{children}</div>
+                    <div className="w-full h-full lg:px-16 xl:px-20 ">{children}</div>
                 </div>
             </main>
         </div>

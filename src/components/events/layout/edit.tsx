@@ -17,12 +17,30 @@ const EditEventLayout = () => {
     const gotTo = (route: string) => {
         navigate(`/private/${route}`, { replace: true })
     }
+    const onSubmit = () => {
+        console.log('submit')
+
+    }
     return (
         <HeaderDashboard children={
             <div className='flex w-full h-full flex-col'>
-                <Header type={HeaderType.EDIT} textRight={'Editar'} actionRight={() => gotTo(`${PrivateRoutes.NEW_EVENT}`)} actionLeft={() => gotTo(PrivateRoutes.EVENTS)} textLeft='Regresar' title='Evento' />
+                <Header className='lg:mb-8'
+                    type={HeaderType.EDIT}
+                    textRight={'Editar'}
+                    actionRight={() => console.log('nothing')}
+                    actionLeft={() => gotTo(PrivateRoutes.EVENTS)}
+                    textLeft='Regresar'
+                    title='Evento'
+                />
                 {isLoading && <p>Loading...</p>}
-                {data && <EventsForm name={data.data.name} description={data.data.description} position={data.data.position} enabled={data.data.active} image={data.data.image} />}
+                {data && <EventsForm
+                    sendData={onSubmit}
+                    name={data.data.name}
+                    description={data.data.description}
+                    position={data.data.position}
+                    enabled={data.data.active}
+                    image={data.data.image}
+                />}
             </div>
         } />
     )

@@ -5,6 +5,7 @@ import { getValidationError } from "../utilities/get-validation-error";
 export const AxiosInterceptor = () => {
    const updateHeader = (request: AxiosRequestConfig) => {
     const token = localStorage.getItem('access_token')
+    console.log('token', token);
     const newHeaders = {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json"

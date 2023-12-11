@@ -53,7 +53,8 @@ const EventsForm: React.FC<{
     description: string
     enabled: boolean
     image: string
-}> = ({ name, position, description, enabled, image }) => {
+    sendData: (data: any) => void
+}> = ({ name, position, description, enabled, image, sendData }) => {
     const defaultValues = {
         name,
         position,
@@ -63,7 +64,7 @@ const EventsForm: React.FC<{
     }
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     const onSubmit = (data: any) => {
-        console.log(data)
+        sendData(data);
         return data
     }
 

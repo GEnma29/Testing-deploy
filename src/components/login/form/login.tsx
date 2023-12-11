@@ -37,7 +37,8 @@ const LoginForm: React.FC = () => {
     setLoading(true)
     const { access_token } = await authService({ email: data.email, password: data.password })
     //TODO use custom hook localStorage 
-    persistLocalStorage<string>('access_token', access_token)
+    localStorage.setItem('access_token', access_token)
+    //persistLocalStorage<string>('access_token', access_token)
     // destruct object
     const { secret, name, last_name, roles, email } = adapterAccessToken(access_token);
     // save user

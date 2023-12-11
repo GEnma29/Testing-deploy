@@ -1,6 +1,7 @@
 import React from 'react'
 import { AddIcon, ArrowBack, EditIcon } from '../../../icons';
 import { useMediaQuery } from '../../../hooks';
+import { cn } from '@/utilities';
 
 export enum HeaderType {
     ADD,
@@ -13,10 +14,11 @@ const Header: React.FC<{
     textRight?: string;
     textLeft?: string;
     actionRight: () => void;
-}> = ({ title, actionLeft, actionRight, type = undefined, textRight, textLeft, }) => {
+    className?: string;
+}> = ({ title, actionLeft, actionRight, type = undefined, textRight, textLeft, className }) => {
     const isDesktopView = useMediaQuery('(min-width: 1024px)')
     return (
-        <div className='flex w-full items-center justify-between'>
+        <div className={cn('flex w-full items-center justify-between', className)}>
             <div onClick={actionLeft} className='hidden lg:flex items-center cursor-pointer'>
                 {textLeft && <ArrowBack className='' />}
                 <p className=' text-xs mr-2  lg:text-lg text-black-300 '>{textLeft}</p>
