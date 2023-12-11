@@ -8,6 +8,8 @@ import { AuthGuard } from './guards'
 import { RoutesWithNotFound } from './utilities';
 import { SnackbarProvider } from 'notistack';
 import { SnackbarUtilitiesConfiguration } from './utilities/snackbar-manager';
+import { SWRConfig } from 'swr';
+//import { localStorageProvider } from './providers/local-storage.provider';
 // lazy pages
 const Login = lazy(() => import('./pages/login/login.page'))
 const RecoverPassword = lazy(() => import('./pages/recover-password/recover-password.page'))
@@ -15,28 +17,27 @@ const Private = lazy(() => import('./pages/private/private'))
 function App() {
   // TODO: create dark mode in tailwind 
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false)
+
   return (
-    <SnackbarProvider>
-      <SnackbarUtilitiesConfiguration />
-      <div className={isDarkMode ? 'min-h-screen bg-background-400' : 'min-h-screen bg-background-200'}>
-        <Suspense fallback={<>Cargando</>}>
-          <BrowserRouter>
-            {/* <Logout /> */}
-            <RoutesWithNotFound>
-              <Route path="/" element={<Navigate to={PrivateRoutes.PRIVATE} />} />
-              <Route path={PublicRoutes.LOGIN} element={<Login />} />
-              <Route path={PublicRoutes.RECOVER_PASSWORD} element={<RecoverPassword />} />
-              <Route element={<AuthGuard />}>
-                <Route path={`${PrivateRoutes.PRIVATE}/*`} element={<Private />} />
-              </Route>
-              {/* <Route element={<RoleGuard rol={Roles.ADMIN} />}>
-              <Route path={PrivateRoutes.DASHBOARD} element={<Dashboard />} />
-            </Route> */}
-            </RoutesWithNotFound>
-          </BrowserRouter>
-        </Suspense>
-      </div>
-    </SnackbarProvider>
+    <SWRConfig>
+      <SnackbarProvider>
+        <SnackbarUtilitiesConfiguration />
+        <div className={isDarkMode ? 'min-h-screen bg-background-400' : 'min-h-screen bg-background-200'}>
+          <Suspense fallback={<>Cargando</>}>
+            <BrowserRouter>
+              <RoutesWithNotFound>
+                <Route path="/" element={<Navigate to={PrivateRoutes.PRIVATE} />} />
+                <Route path={PublicRoutes.LOGIN} element={<Login />} />
+                <Route path={PublicRoutes.RECOVER_PASSWORD} element={<RecoverPassword />} />
+                <Route element={<AuthGuard />}>
+                  <Route path={`${PrivateRoutes.PRIVATE}/*`} element={<Private />} />
+                </Route>
+              </RoutesWithNotFound>
+            </BrowserRouter>
+          </Suspense>
+        </div>
+      </SnackbarProvider>
+    </SWRConfig>
   )
 }
 

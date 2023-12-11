@@ -7,6 +7,8 @@ import sidebarLogo from '../../../assets/sidebarLogo.svg'
 import { PrivateRoutes } from '../../../models';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { userStore } from '../../../stores/user.store';
+import { Select } from '@/components/forms/inputs';
+import { Separator } from '@/components/common/separator.component';
 
 
 
@@ -114,7 +116,10 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({ children }) 
                                             <div>
 
                                             </div>
-                                            <LogOut onClick={() => logout()} />
+                                            <div className='flex p-2 items-center '>
+                                                <LogOut onClick={() => logout()} />
+                                                <p className='flex ml-2 text-primary-300'>Serrar Sesión</p>
+                                            </div>
                                         </ul>
                                     </nav>
                                 </div>
@@ -133,6 +138,7 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({ children }) 
                         alt="show master"
                     />
                 </div>
+                <Separator className='flex w-full items-center justify-center my-2  bg-background-200' orientation='horizontal' />
                 <div className="divider m-0 p-0" />
                 <nav className="mx-2">
                     <ul role="list" className="flex flex-col items-center space-y-1">
@@ -172,19 +178,13 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({ children }) 
 
                     </div>
                 </button>
-
-                <a href="#">
-                    <span className="sr-only">Your profile</span>
-                    <img
-                        className="h-8 w-8 rounded-full bg-gray-800"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
-                    />
-                </a>
+                <select>
+                    <option value="test">{'test'}</option>
+                </select>
             </div>
 
             <main className="lg:pl-20">
-                <div className="xl:pl-96">
+                <div className="xl:p-20">
                     <div className="px-2 py-4 sm:px-6 lg:px-8 lg:py-6">{children}</div>
                 </div>
             </main>

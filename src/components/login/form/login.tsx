@@ -52,7 +52,7 @@ const LoginForm: React.FC = () => {
   return (
     <div className='flex flex-col justify-center items-center w-full  lg:w-80  f-full'>
       <h1 className='flex mt-4 text-3xl font-normal text-primary-300 w-full justify-center items-center lg:mt-16 lg:items-start lg:justify-start '> Inicia sesión</h1>
-      <Form onSubmit={onSubmit} defaultValues={defaultValues} resolver={resolver}>
+      <Form className='flex flex-col w-full' onSubmit={onSubmit} defaultValues={defaultValues} resolver={resolver}>
         <ControllerInput label={<p className='flex font-normal text-black-300'>Correo</p>} name='email' />
         <ControllerInput label={<p className='flex font-normal text-black-300'>Contraseña</p>} name='password' type='password' />
         <div className='flex my-4 flex-row'>

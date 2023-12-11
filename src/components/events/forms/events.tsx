@@ -102,7 +102,7 @@ const EventsForm: React.FC<{
                     </div>
                     <div className='flex mt-16 w-full items-center justify-center lg:items-start lg:justify-start lg:w-80'>
                         <Button >
-                            Submit
+                            Guardar
                         </Button>
                     </div>
                 </div>
