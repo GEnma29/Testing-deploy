@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const AuthGuard = () => {
-    const isAuth = userStore((state) => state.isAuth)
+    const isAuth = localStorage.getItem('access_token')
     return isAuth ? <Outlet /> : <Navigate replace to={PublicRoutes.LOGIN} />
 
 };

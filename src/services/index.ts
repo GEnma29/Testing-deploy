@@ -1,2 +1,2 @@
 export { authService } from './auth.service';
-export { eventsFetcher } from './events.service';
+export { eventsFetcher, updateEvent, createEvent , updateEventAxios} from './events.service';

@@ -21,8 +21,15 @@ const LayoutEvents: React.FC<{}> = ({ }) => {
     if (!isLoading && !error && data && data.data && data.data.length > 0)
         return (
             <HeaderDashboard children={<div className='flex w-full h-full flex-col'>
-                <Header type={HeaderType.ADD} textRight={'Añadir evento'} actionRight={() => gotTo(`${PrivateRoutes.NEW_EVENT}`)} actionLeft={() => console.log('goBack')} title='Eventos' />
-                <div className="my-8 h-full grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-2 lg:px-16" >
+                <Header
+                    className='mt-4'
+                    type={HeaderType.ADD}
+                    textRight={'Añadir evento'}
+                    actionRight={() => gotTo(`${PrivateRoutes.NEW_EVENT}`)}
+                    actionLeft={() => console.log('goBack')}
+                    title='Eventos'
+                />
+                <div className="my-8  h-full grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-2 lg:px-16" >
                     {data.data.map((event: any) => {
                         return <Card key={event.id} id={event.id} title={event.name as string} src={event.image} />
                     })}

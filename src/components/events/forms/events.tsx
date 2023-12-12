@@ -1,9 +1,11 @@
 import React from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { boolean, object, string, number } from 'yup'
+import { boolean, object, string, number, mixed } from 'yup'
 import Form from '../../forms/from'
 import { Textarea, Select, ControllerInput, ImageInput, SwitchWrapper } from '@/components/forms/inputs'
 import { Button } from '@/components/common'
+import { EventsInstance, createEvent } from '@/services/events.service'
+import useSWRMutation from 'swr/mutation'
 
 const options = [{
     value: 1,
@@ -59,27 +61,38 @@ const EventsForm: React.FC<{
         name,
         position,
         description,
-        enabled
+        enabled,
+        image,
 
     }
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-    const onSubmit = (data: any) => {
-        sendData(data);
-        return data
+    const onSubmit = async (data: any) => {
+        const form = new FormData();
+        form.append("name", data.name)
+        form.append("image", data.image)
+        form.append("position", data.position)
+        form.append("description", data.description)
+        form.append("active", data.enabled)
+        form.append("base_id", '100001');
+        form.append("category_id", '100001');
+        form.append("start_date", new Date().toUTCString());
+
+        sendData(form)
     }
 
     const validationSchema = object({
         name: string().required(),
         position: number().required(),
         description: string().required(),
-        enabled: boolean().required()
+        enabled: boolean().required(),
+        image: mixed(),
     })
 
     const resolver = yupResolver(validationSchema)
 
     return (
 
-        <Form className='flex w-full h-full  mt-8 flex-wrap-reverse' onSubmit={onSubmit} resolver={resolver} defaultValues={defaultValues}>
+        <Form className='flex p-4  w-full h-full  mt-8 flex-wrap-reverse' onSubmit={onSubmit} resolver={resolver} defaultValues={defaultValues}>
             <div className='flex w-full lg:w-6/12'>
                 <div className='flex flex-col w-full'>
                     <div className='flex flex-col lg:flex-row items-center'>
@@ -108,8 +121,8 @@ const EventsForm: React.FC<{
                     </div>
                 </div>
             </div>
-            <div className='flex w-full lg:w-6/12'>
-                <ImageInput img={image} />
+            <div className='flex w-full items-center justify-center lg:items-start lg:justify-start lg:w-6/12'>
+                <ImageInput name='image' img={image} />
             </div>
         </Form>)
 }

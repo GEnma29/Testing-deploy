@@ -6,7 +6,9 @@ import { HeaderType } from '@/components/common/layout/header'
 import { useParams, useNavigate } from 'react-router-dom'
 import { PrivateRoutes } from '@/models'
 import useSWR from 'swr'
-import { eventsFetcher } from '@/services'
+import { eventsFetcher, updateEvent } from '@/services'
+import useSWRMutation from 'swr/mutation'
+import { SnackbarUtilities } from '@/utilities'
 
 
 const EditEventLayout = () => {
@@ -14,11 +16,26 @@ const EditEventLayout = () => {
     const { eventId } = useParams();
 
     const { data, isLoading } = useSWR(`/events/${eventId}`, eventsFetcher)
+    const { trigger, isMutating } = useSWRMutation(`/events/${eventId}`, updateEvent)
+
     const gotTo = (route: string) => {
         navigate(`/private/${route}`, { replace: true })
     }
-    const onSubmit = () => {
-        console.log('submit')
+    const onSubmit = async (data: FormData) => {
+        // const res = await updateEvent(`${eventId}`, data)
+        const res = await trigger(data)
+
+        if (res.status === 401) {
+            localStorage.removeItem('access_token')
+            navigate(`/private/${PrivateRoutes.EVENTS}`, { replace: false })
+        }
+        if (res.status === 201) {
+            SnackbarUtilities.success('Evento actualizado');
+            gotTo(PrivateRoutes.EVENTS)
+        }
+
+
+
 
     }
     return (
