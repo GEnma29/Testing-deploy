@@ -1,9 +1,7 @@
-import React from 'react'
-import { EditEventLayout } from "@/components/events/layout"
+import React from 'react';
+import { EditEventLayout } from '@/components/events/layout';
 const EditEvent = () => {
-    return (
-        <EditEventLayout />
-    )
-}
+  return <EditEventLayout />;
+};
 
-export default EditEvent
+export default EditEvent;

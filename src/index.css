@@ -7,41 +7,40 @@
 
 /* Change the white to any color */
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active{
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    outline: none;
-    border: none;
-    /* -webkit-box-shadow: 0 0 0 30px transparent inset !important; */
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  border: none;
+  /* -webkit-box-shadow: 0 0 0 30px transparent inset !important; */
 }
 
 .tool-tip {
-    position: absolute;
-    z-index: 1;
-    pointer-events: none;
-    user-select: none;
-    box-shadow: 0 0 10px #000;
-    font-size: .8rem;
-    border-radius: 8px;
-    top: 100%;
-    left: 12.5;
-    opacity: 0;
-    transition: opacity .3s;
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  box-shadow: 0 0 10px #000;
+  font-size: 0.8rem;
+  border-radius: 8px;
+  top: 100%;
+  left: 12.5;
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 :has(> .tool-tip) {
-    position: relative;
-
+  position: relative;
 }
 :has(> .tool-tip) :hover .tool-tip {
-    opacity: 1;
+  opacity: 1;
 }
 
 /* Change Autocomplete styles in Chrome*/
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
+input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,
@@ -49,8 +48,15 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  border:none ;
-  -webkit-text-fill-color: #211E52;
+  border: none;
+  -webkit-text-fill-color: #211e52;
   -webkit-box-shadow: 0 0 0px 1000px white inset;
-  transition: white  5000s ease-in-out 0s;
+  transition: white 5000s ease-in-out 0s;
+}
+
+.input_number:focus {
+  border: none;
+  -webkit-text-fill-color: #211e52;
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  transition: white 5000s ease-in-out 0s;
 }

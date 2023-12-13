@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 // import { object, string, number, date, InferType } from 'yup';
 import Layout from '../../components/common/layout/layout';
@@ -10,28 +10,28 @@ import { LoginFragment } from '../../components/login';
 //     password: string,
 // }
 const Login: React.FC = () => {
-    // const defaultValues = {
-    //     email: '',
-    //     password: '',
-    // }
-    // const validationSchema = object({
-    //     'email': string().email().required(),
-    //     'password': string().required(),
-    // })
+  // const defaultValues = {
+  //     email: '',
+  //     password: '',
+  // }
+  // const validationSchema = object({
+  //     'email': string().email().required(),
+  //     'password': string().required(),
+  // })
 
-    // const onSubmit = (data: FormLogin) => console.log(data)
-    // const resolver = yupResolver(validationSchema)
-    return (
-        <Layout form={<LoginForm />} element={<LoginFragment />} />
-        // <div>
-        //     <h1>Login</h1>
-        //     <Form onSubmit={onSubmit} defaultValues={defaultValues} resolver={resolver}>
-        //         <ControllerInput name='email' />
-        //         <ControllerInput rules={{ maxLength: 5 }} name='password' type='password' />
-        //         <button type='submit'>Login</button>
-        //     </Form>
-        // </div>
-    )
-}
+  // const onSubmit = (data: FormLogin) => console.log(data)
+  // const resolver = yupResolver(validationSchema)
+  return (
+    <Layout form={<LoginForm />} element={<LoginFragment />} />
+    // <div>
+    //     <h1>Login</h1>
+    //     <Form onSubmit={onSubmit} defaultValues={defaultValues} resolver={resolver}>
+    //         <ControllerInput name='email' />
+    //         <ControllerInput rules={{ maxLength: 5 }} name='password' type='password' />
+    //         <button type='submit'>Login</button>
+    //     </Form>
+    // </div>
+  );
+};
 
-export default Login
+export default Login;

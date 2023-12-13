@@ -1,10 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { CreateLayout } from '../../components/events';
 
 const CreateEvent: React.FC = () => {
-    return (
-        <CreateLayout />
-    )
-}
+  return <CreateLayout />;
+};
 
 export default CreateEvent;

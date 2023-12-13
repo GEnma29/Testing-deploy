@@ -1,1 +1,1 @@
-export { default as EventsForm } from './events'
+export { default as EventsForm } from './events';

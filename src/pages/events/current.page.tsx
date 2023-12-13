@@ -1,10 +1,8 @@
-import React from 'react'
-import LayoutEvents from '../../components/events/layout/events'
+import React from 'react';
+import LayoutEvents from '../../components/events/layout/events';
 
 const CurrentEvents: React.FC = () => {
-    return (
-        <LayoutEvents />
-    )
-}
+  return <LayoutEvents />;
+};
 
-export default CurrentEvents
+export default CurrentEvents;

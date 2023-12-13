@@ -1,4 +1,4 @@
-import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 
 type SetValue<T> = Dispatch<SetStateAction<T>>;
 
@@ -7,7 +7,9 @@ const useLocalStorage = <T>(key: string, defaultValue: T): [T, SetValue<T>] => {
     let currentValue;
 
     try {
-      currentValue = JSON.parse(localStorage.getItem(key) || String(defaultValue));
+      currentValue = JSON.parse(
+        localStorage.getItem(key) || String(defaultValue),
+      );
     } catch (error) {
       currentValue = defaultValue;
     }

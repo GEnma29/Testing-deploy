@@ -1,10 +1,8 @@
-import React from 'react'
-import DashboardLayout from '../../components/dashboard/layout/layout'
+import React from 'react';
+import DashboardLayout from '../../components/dashboard/layout/layout';
 
 const Dashboard: React.FC = () => {
-    return (
-        <DashboardLayout />
-    )
-}
+  return <DashboardLayout />;
+};
 
-export default Dashboard
+export default Dashboard;
