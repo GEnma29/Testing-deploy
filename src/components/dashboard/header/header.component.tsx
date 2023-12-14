@@ -21,7 +21,6 @@ import sidebarLogo from '../../../assets/sidebarLogo.svg';
 import { PrivateRoutes } from '../../../models';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { userStore } from '../../../stores/user.store';
-import { Select } from '@/components/forms/inputs';
 import { Separator } from '@/components/common/separator.component';
 
 const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({
@@ -62,7 +61,7 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({
     },
     {
       name: 'Pagos Pendientes',
-      href: '/payments/pending',
+      href: PrivateRoutes.PENDING_PAYMENT,
       icon: PendingPayment,
       current: false,
     },

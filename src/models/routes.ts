@@ -12,6 +12,7 @@ export const PrivateRoutes = {
   ENTRIES: 'entries',
   ENTRY_DETAILS: 'entry-details',
   NEW_ENTRY: 'new-entry',
+  PENDING_PAYMENT: 'pending-payment',
   EXCHANGE_RATE: 'exchange-rate',
   SETTINGS: 'settings',
 };

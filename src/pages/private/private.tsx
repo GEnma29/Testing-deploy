@@ -11,7 +11,7 @@ const Entries = lazy(() => import('../entries/entries.page'));
 const CreateEntry = lazy(() => import('../entries/create-entry.page'));
 const EntryDetails = lazy(() => import('../entries/entry-details.page'));
 const ExchangeRate = lazy(() => import('../exchange-rate/exchange-rate.page'));
-
+const PendingPayment = lazy(() => import('../pending-payment/pending-payment.page'));
 function Private() {
   return (
     <RoutesWithNotFound>
@@ -33,6 +33,8 @@ function Private() {
         element={<EntryDetails />}
       />
       <Route path={PrivateRoutes.EXCHANGE_RATE} element={<ExchangeRate />} />
+      <Route path={PrivateRoutes.PENDING_PAYMENT} element={<PendingPayment />} />
+
     </RoutesWithNotFound>
   );
 }
