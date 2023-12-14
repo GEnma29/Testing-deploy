@@ -28,7 +28,7 @@ function App() {
           className={
             isDarkMode
               ? 'min-h-screen bg-background-400'
-              : 'min-h-screen bg-background-200'
+              : 'min-h-screen bg-background-100'
           }
         >
           <Suspense fallback={<>Cargando</>}>
