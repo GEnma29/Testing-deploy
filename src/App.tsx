@@ -25,7 +25,7 @@ function App() {
   return (
     <SWRConfig
       value={{
-        refreshInterval: 3000,
+        //refreshInterval: 3000,
         revalidateOnFocus: true,
       }}>
       <SnackbarProvider>

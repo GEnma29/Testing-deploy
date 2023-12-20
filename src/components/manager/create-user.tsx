@@ -22,7 +22,7 @@ const CreateLayout: React.FC<{
                         type={HeaderType.EDIT}
                         textRight={'Editar'}
                         actionRight={() => { }}
-                        actionLeft={() => gotTo(PrivateRoutes.EVENTS)}
+                        actionLeft={() => navigate(-1)}
                         textLeft="Regresar"
                         title="Create User"
                     />

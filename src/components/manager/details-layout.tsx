@@ -27,7 +27,7 @@ const DetailsLayout: React.FC = () => {
                         type={HeaderType.EDIT}
                         textRight={'Editar'}
                         actionRight={() => { }}
-                        actionLeft={() => gotTo(PrivateRoutes.EVENTS)}
+                        actionLeft={() => gotTo(PrivateRoutes.MANAGER)}
                         textLeft="Regresar"
                         title={first_name + " " + last_name}
                     />

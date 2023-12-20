@@ -26,6 +26,9 @@ const EditEntry = () => {
   const gotTo = (route: string) => {
     navigate(`/private/${route}`, { replace: true });
   };
+  const goback = () => {
+    navigate(-1)
+  }
   const onSubmit = async (data: any) => {
     const res = await trigger(data);
     if (res.status === 201) {
@@ -44,7 +47,7 @@ const EditEntry = () => {
             type={HeaderType.EDIT}
             textRight={'Editar'}
             actionRight={() => { }}
-            actionLeft={() => gotTo(PrivateRoutes.EVENTS)}
+            actionLeft={goback}
             textLeft="Regresar"
             title="Entrada"
           />
