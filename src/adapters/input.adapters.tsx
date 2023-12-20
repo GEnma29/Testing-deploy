@@ -1,3 +1,4 @@
+import { cn } from '@/utilities';
 import React from 'react';
 import { ControllerFieldState } from 'react-hook-form';
 
@@ -5,12 +6,14 @@ interface InputStyleAdapterProps {
   label?: React.ReactNode;
   fieldState: ControllerFieldState;
   input: React.ReactNode;
+  className?: string;
 }
 
 export const InputStyleAdapter: React.FC<InputStyleAdapterProps> = ({
   fieldState,
   input,
   label,
+  className,
 }) => {
   const styles = {
     normal: 'border-gray-400',
@@ -34,7 +37,7 @@ export const InputStyleAdapter: React.FC<InputStyleAdapterProps> = ({
     <div className="flex my-2 flex-col w-full">
       {label ?? label}
       <div
-        className={`flex bg-white p-3 h-14 border-solid border-2 rounded-lg ${style} `}
+        className={cn(`flex bg-white p-3 h-14 border-solid border-2 rounded-lg ${style} `, className)}
       >
         {input}
       </div>

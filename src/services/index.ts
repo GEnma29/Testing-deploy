@@ -5,3 +5,6 @@ export {
   createEvent,
   updateEventAxios,
 } from './events.service';
+export {
+ordersFetcher
+} from './order.service'

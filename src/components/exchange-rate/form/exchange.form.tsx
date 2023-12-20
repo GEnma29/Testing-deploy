@@ -21,7 +21,7 @@ const ExchangeRateForm: React.FC<{
 
   return (
     <Form
-      className="flex flex-col items-center justify-center"
+      className="flex p-2 flex-col items-center justify-center"
       onSubmit={onSubmit}
       defaultValues={defaultValues}
       resolver={resolver}
