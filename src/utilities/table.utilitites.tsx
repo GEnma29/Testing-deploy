@@ -19,7 +19,7 @@ export const adapterBadged = ({ state = 'pending' }: { state: State }) => {
             pending: () => <Badge variant='pending' title="Pendiente" />,
             rejected: () => <Badge variant='reject' title="Denegado" />,
             cancelled: () => <Badge variant='cancelled' title="Cancelado" />,
-            completed: () => <Badge variant='completed' title="Aprovado" />,
+            completed: () => <Badge variant='completed' title="Aprobado" />,
             default: () => <Badge variant='pending' title="Pendiente" />,
         } as Record<State, FC>
     )[state] || <Badge variant='pending' title="Pendiente" />;

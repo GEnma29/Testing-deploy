@@ -23,7 +23,11 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
   return (
-    <SWRConfig>
+    <SWRConfig
+      value={{
+        refreshInterval: 3000,
+        revalidateOnFocus: true,
+      }}>
       <SnackbarProvider>
         <SnackbarUtilitiesConfiguration />
         <div
