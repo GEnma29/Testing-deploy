@@ -1,19 +1,29 @@
 import { useState, useMemo } from "react";
-import TableLayout from "../common/layout/tablet";
+import dayjs from "dayjs";
 import useSWR from "swr";
-import { ChevronLeft, ChevronRight } from "lucide-react"
 import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
 import { ordersFetcher } from "@/services";
-import dayjs from "dayjs";
-import { Button, DatePickerDemo, DatePickerWithRange, } from "@/components/common";
+import { DatePickerWithRange, } from "@/components/common";
 import { DateRange } from "react-day-picker";
+import TableLayout from "../common/layout/tablet";
+import PaginationTable from "../common/pagination-table.component";
+import { useNavigate } from "react-router-dom";
 
 const TablePendingPayment = () => {
+
     const [date, setDate] = useState<DateRange | undefined>({
         from: new Date(2023, 10, 20),
         to: dayjs(new Date(2023, 10, 20)).add(20, 'days').toDate(),
     })
+    const navigate = useNavigate()
+
+    const gotTo = (route: string) => {
+        navigate(`/private/payments/${route}`, { replace: true })
+
+    }
+
     const [page, setPage] = useState<number>(1)
+    const [limit, setLimit] = useState<number>(10)
 
     const nextPage = () => {
         setPage((prev) => page + 1)
@@ -23,8 +33,8 @@ const TablePendingPayment = () => {
     }
 
     const key = useMemo(() => {
-        return `/payments?sort=created_at&limit=10&page=${page}&status=pending&start_date=${dayjs(date?.from).format()}&end_date=${dayjs(date?.to).format()}`;
-    }, [page, date]);
+        return `/payments?sort=created_at&limit=${limit}&page=${page}&status=pending&start_date=${dayjs(date?.from).format()}&end_date=${dayjs(date?.to).format()}`;
+    }, [page, date, limit]);
 
 
 
@@ -45,6 +55,10 @@ const TablePendingPayment = () => {
         {
             header: 'Pago',
             accessorKey: 'id',
+            cell: (info: any) => {
+                return <p onClick={() => gotTo(info.getValue())} className="underline cursor-pointer text-center">{'ver'}</p>
+
+            }
 
 
         },
@@ -61,9 +75,9 @@ const TablePendingPayment = () => {
         {
             header: 'Fecha',
             accessorKey: 'created_at',
-            cell: (info: any) => dayjs(info.value).format('DD/MM/YYYY')
-
+            cell: (info: any) => dayjs(info.getValue()).format('DD/MM/YYYY')
         },
+
         {
             header: 'Actualizado por',
             accessorKey: 'updated_by_id',
@@ -80,7 +94,7 @@ const TablePendingPayment = () => {
     return (
         <TableLayout
             filters={
-                <div>
+                <div className="flex w-full">
                     <DatePickerWithRange
                         date={date}
                         setDate={setDate}
@@ -88,14 +102,11 @@ const TablePendingPayment = () => {
 
 
                 </div>
-            }
-            isLoading={isLoading}
-            table={
-                <div className="flex w-full flex-col">
-
+            } table={
+                <>
                     {isLoading ? <p>Loading</p> :
-                        <table className="min-w-full divide-y divide-gray-100">
-                            <thead className="">
+                        <table className="min-w-full divide-y divide-gray-100  ">
+                            <thead className="rounded-lg bg-[#EBEBEB]">
                                 {table.getHeaderGroups().map((headerGroup) => (
                                     <tr key={headerGroup.id}>
                                         {headerGroup.headers.map((header, index) => (
@@ -110,11 +121,11 @@ const TablePendingPayment = () => {
                                     </tr>
                                 ))}
                             </thead>
-                            <tbody className="divide-y divide-gray-100 bg-white">
+                            <tbody className="divide-y divide-gray-100 bg-transpatent">
                                 {
                                     table.getRowModel().rows.map((row) => {
                                         return (
-                                            <tr key={row.id}>
+                                            <tr key={row.id} className=" hover:bg-[#EBEBEB]">
                                                 {row.getVisibleCells().map((cell, index) => {
                                                     return (
                                                         <td
@@ -135,35 +146,19 @@ const TablePendingPayment = () => {
                         </table>
                     }
 
-                    <nav
-                        className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6"
-                        aria-label="Pagination"
-                    >
-                        <div className="hidden sm:block">
-                            <p className="text-sm text-gray-700">
-                                Showing <span className="font-medium">{page}</span> to <span className="font-medium">{data?.data.length}</span> of{' '}
-                                <span className="font-medium">{data?.data?.total_pages}</span> results
-                            </p>
-                        </div>
-                        <div className="flex flex-1 justify-between sm:justify-end">
-                            <a
-                                onClick={prevPage}
-                                className="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0"
-                            >
-                                Previous
-                            </a>
-                            <a
-                                onClick={nextPage}
-                                className="relative ml-3 inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0"
-                            >
-                                Next
-                            </a>
-                        </div>
-                    </nav>
-
-
-                </div>
-            } />
+                </>
+            }
+            pagination={
+                <PaginationTable
+                    totalPages={10}
+                    currentPage={page}
+                    nextPage={nextPage}
+                    prevPage={prevPage}
+                    limit={limit}
+                    setLimit={setLimit}
+                />
+            }
+        />
     )
 }
 export default TablePendingPayment;
