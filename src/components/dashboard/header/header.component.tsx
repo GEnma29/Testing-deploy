@@ -18,8 +18,8 @@ import {
 } from '../../../icons';
 import { MdOutlineClose } from 'react-icons/md';
 import sidebarLogo from '../../../assets/sidebarLogo.svg';
-import { PrivateRoutes } from '../../../models';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { PrivateRoutes, PublicRoutes, ROLES } from '../../../models';
+import { useLocation, useNavigate, NavLink, useParams } from 'react-router-dom';
 import { userStore } from '../../../stores/user.store';
 import { Separator } from '@/components/common/separator.component';
 
@@ -29,23 +29,31 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const { last_name, name, role, logout } = userStore((state) => state);
   const { pathname } = useLocation();
+  const params = useParams();
   const navigate = useNavigate();
+
 
   const gotTo = (route: string) => {
     navigate(`/private/${route}`, { replace: true });
   };
 
+  const closedSession = () => {
+    localStorage.removeItem('access_token')
+    logout()
+    navigate(`/${PublicRoutes.LOGIN}`, { replace: true });
+  }
+
   const validateRoute = (routes: string[], currentRoute: string) => {
     return routes.some((route) => currentRoute.includes(route));
   };
 
-  const navigation = [
-    {
-      name: 'Home',
-      href: PrivateRoutes.DASHBOARD,
-      icon: Home,
-      current: validateRoute([PrivateRoutes.DASHBOARD], pathname),
-    },
+  const AllElements = [
+    // {
+    //   name: 'Home',
+    //   href: PrivateRoutes.DASHBOARD,
+    //   icon: Home,
+    //   current: validateRoute([PrivateRoutes.DASHBOARD], pathname),
+    // },
     {
       name: 'Eventos',
       href: PrivateRoutes.EVENTS,
@@ -67,21 +75,21 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({
     },
     {
       name: 'Manager Protocolo',
-      href: '/manager',
+      href: PrivateRoutes.MANAGER,
       icon: Manager,
       current: false,
     },
-    { name: 'Protocolo', href: '/protocol', icon: Protocol, current: false },
-    { name: 'Cajeros', href: '/cashiers', icon: Cashiers, current: false },
+    { name: 'Protocolo', href: PrivateRoutes.PROTOCOL, icon: Protocol, current: false },
+    { name: 'Cajeros', href: PrivateRoutes.CASHIERS, icon: Cashiers, current: false },
     {
       name: 'Historial de Eventos',
-      href: '/events',
+      href: PrivateRoutes.EVENTS_HISTORY,
       icon: HistoryEvents,
       current: false,
     },
     {
       name: 'Historial de Pagos',
-      href: '/payments',
+      href: PrivateRoutes.PAYMENTS,
       icon: HistoryPayments,
       current: false,
     },
@@ -99,6 +107,17 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({
       current: false,
     },
   ];
+
+  const analyticsNavigation = [
+    {
+      name: 'Historial de Pagos',
+      href: PrivateRoutes.PAYMENTS,
+      icon: HistoryPayments,
+      current: false,
+    },
+
+  ]
+  const navigation = role.funkart[0] === 'admin' ? AllElements : analyticsNavigation
 
   return (
     <div>
@@ -167,8 +186,10 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({
                     <ul role="list" className="-mx-2 flex-1 space-y-1">
                       {navigation.map((item) => (
                         <li key={item.name}>
-                          <a
-                            onClick={() => gotTo(item.href)}
+                          <NavLink
+                            replace
+                            to={`../../private/${item.href}`}
+                            // onClick={() => gotTo(item.href)}
                             className={classNames(
                               item.current
                                 ? 'bg-gray-100 text-primary-300'
@@ -182,12 +203,12 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({
                               aria-hidden="true"
                             />
                             {item.name}
-                          </a>
+                          </NavLink>
                         </li>
                       ))}
                       <div></div>
                       <div
-                        onClick={() => logout()}
+                        onClick={closedSession}
                         className="flex p-2 items-center cursor-pointer "
                       >
                         <LogOut />
@@ -218,8 +239,9 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({
           <ul role="list" className="flex flex-col items-center space-y-1">
             {navigation.map((item) => (
               <li key={item.name}>
-                <a
-                  href={item.href}
+                <NavLink
+                  replace
+                  to={`../../private/${item.href}`}
                   className={classNames(
                     item.current
                       ? 'bg-gray-100 text-white'
@@ -233,10 +255,10 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({
                     aria-hidden="true"
                   />
                   <span className="sr-only">{item.name}</span>
-                </a>
+                </NavLink>
               </li>
             ))}
-            <LogOut onClick={() => logout()} />
+            <LogOut onClick={closedSession} />
           </ul>
         </nav>
       </div>
@@ -265,7 +287,7 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({
 
       <main className="lg:pl-20">
         <div className="xl:p-20">
-          <div className="w-full h-full lg:px-16 xl:px-20 ">{children}</div>
+          <div className="w-full h-full lg:pl-14 ">{children}</div>
         </div>
       </main>
     </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import useSWR from 'swr';
 import { useNavigate } from 'react-router-dom';
 import { eventsFetcher } from '../../../services';
@@ -8,9 +8,13 @@ import { Header } from '../../common';
 import { Card } from '..';
 import { PrivateRoutes } from '../../../models';
 
-const LayoutEvents: React.FC<{}> = ({}) => {
+const LayoutEvents: React.FC<{
+  activeEvents: boolean;
+}> = ({ activeEvents }) => {
+
+  const url = useMemo(() => `/events?sort=position&active=${activeEvents}&entries=true`, [activeEvents])
   const { data, error, isLoading } = useSWR(
-    '/events?sort=position&active=true&entries=true',
+    url,
     eventsFetcher,
   );
   const navigate = useNavigate();

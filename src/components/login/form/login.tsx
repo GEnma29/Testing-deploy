@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { object, string } from 'yup';
 import Form from '../../forms/from';
-import { ControllerInput } from '../../forms/inputs/input.component';
+import { ControllerInput, ControllerInputPassword } from '../../forms/inputs/input.component';
 import { Button } from '../../common';
 import { authService } from '../../../services';
 import { adapterAccessToken } from '../../../adapters/auth.adapters';
@@ -74,10 +74,11 @@ const LoginForm: React.FC = () => {
           label={<p className="flex font-normal text-black-300">Correo</p>}
           name="email"
         />
-        <ControllerInput
+        <ControllerInputPassword
           label={<p className="flex font-normal text-black-300">Contraseña</p>}
           name="password"
-          type="password"
+          type='password'
+
         />
         <div className="flex my-4 flex-row">
           <input

@@ -44,6 +44,7 @@ export function ControllerInput({
   label,
   ...rest
 }: InputControllerProps) {
+  const { className, ...newRest } = rest
   const [typeInput, setTypeInput] = useState(rest.type);
   return (
     <Controller
@@ -54,6 +55,7 @@ export function ControllerInput({
         <InputStyleAdapter
           label={label}
           fieldState={fieldState}
+          className={className}
           input={
             <div className="flex items-center h-full w-full">
               {startIcon ?? startIcon}
@@ -70,8 +72,8 @@ export function ControllerInput({
                 <input
                   className="flex appearance-none input after:bg-white  border-0 focus:ring-0  bg-white focus:outline-none w-full h-full"
                   {...field}
-                  {...rest}
-                  type={typeInput}
+                  {...newRest}
+                  type={rest.type}
                 />
               )}
               {endIcon ?? endIcon}
@@ -88,4 +90,37 @@ export function ControllerInput({
       )}
     />
   );
+}
+
+export const ControllerInputPassword = (props: InputControllerProps) => {
+  const [typeInput, setTypeInput] = useState(props.type || 'password');
+  return <Controller
+    control={props.control}
+    name={props.name}
+    rules={props.rules}
+    render={({ field: { value, onBlur, onChange }, fieldState }) => (
+      <InputStyleAdapter
+        label={props.label}
+        fieldState={fieldState}
+        className={props.className}
+        input={
+          <div className="flex items-center h-full w-full">
+            <input
+              className="flex appearance-none input after:bg-white  border-0 focus:ring-0  bg-white focus:outline-none w-full h-full"
+              type={typeInput || 'password'}
+              value={value || ''}
+              onBlur={onBlur}
+              onChange={onChange}
+            />
+            {props.type === 'password' ? (
+              typeInput === 'password' ? (
+                <FaEyeSlash onClick={() => setTypeInput('text')} />
+              ) : (
+                <FaEye onClick={() => setTypeInput('password')} />
+              )
+            ) : null}
+          </div>
+        }
+      />)}
+  />
 }

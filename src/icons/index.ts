@@ -18,3 +18,7 @@ export { default as ArrowBack } from './arrow-back';
 export { default as AddIcon } from './add-header';
 export { default as EditIcon } from './edit-icon';
 export { default as TicketIcon } from './ticket.icon';
+export { default as CompletedIcon } from './completed';
+export { default as PedingIcon } from './pending';
+export { default as CancelledIcon } from './cancelled';
+export { default as ProtocolIcon } from './protocol-icon';

@@ -60,38 +60,41 @@ select:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px white inset;
   transition: white 5000s ease-in-out 0s;
 }
-table {
+.payment_table {
   border-collapse: separate;
   border-spacing: 0;
   min-width: 350px;
 }
-table tr th,
-table tr td {
-  
-  border-bottom: 1px solid #bbb;
-  padding: 5px;
+.payment_table tr th,
+.payment_table tr td {
+ border-bottom: 1px solid #bbb;
+
 }
 /* table tr th:first-child {
   border-left: 1px solid #bbb;
 } */
 
-
-/* top-left border-radius */
-table tr:first-child th:first-child {
+.payment_table thead :last-child {
+  border-top-right-radius: 16px;
+}
+.payment_table thead :first-child {
   border-top-left-radius: 16px;
 }
+/* top-left border-radius */
+/* .payment_table tr:first-child th:first-child {
+  border-radius: 8px 8px 0px 0px;
+} */
 
-/* top-right border-radius */
-table tr:first-child th:last-child {
+.payment_table tr:first-child th:last-child {
   border-top-right-radius: 16px;
 }
 
 /* bottom-left border-radius */
-table tr:last-child td:first-child {
+.payment_table tr:last-child td:first-child {
   border-bottom-left-radius: 6px;
 }
 
 /* bottom-right border-radius */
-table tr:last-child td:last-child {
+.payment_table tr:last-child td:last-child {
   border-bottom-right-radius: 6px;
 }
