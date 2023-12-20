@@ -14,14 +14,14 @@ const EditEntry = () => {
   const { eventId, entryId } = useParams();
   const navigate = useNavigate();
   const { data, isLoading, error } = useSWR(
-    `events/entries/${entryId}`,
+    `/events/entries/${entryId}`,
     entriesFetcher,
   );
   const { trigger, isMutating } = useSWRMutation(
-    `events/entries/`,
+    `/events/entries/${entryId}`,
     updateEntry,
   );
-  console.log(data);
+  // console.log(data);
 
   const gotTo = (route: string) => {
     navigate(`/private/${route}`, { replace: true });
@@ -29,7 +29,7 @@ const EditEntry = () => {
   const onSubmit = async (data: any) => {
     const res = await trigger(data);
     if (res.status === 201) {
-      SnackbarUtilities.success('Entrada creada correctamente');
+      SnackbarUtilities.success('Entrada editada correctamente');
       gotTo(PrivateRoutes.EVENTS);
     }
     if (res.status === 401) {
@@ -43,7 +43,7 @@ const EditEntry = () => {
           <Header
             type={HeaderType.EDIT}
             textRight={'Editar'}
-            actionRight={() => {}}
+            actionRight={() => { }}
             actionLeft={() => gotTo(PrivateRoutes.EVENTS)}
             textLeft="Regresar"
             title="Entrada"
@@ -52,7 +52,7 @@ const EditEntry = () => {
             <EntryForm
               name={data.data.name}
               label={data.data.label}
-              price={data.data.amount}
+              price={data.data.price}
               seats_per_table={data.data.seats_per_table}
               color={data.data.properties.color || '#7aa6ad'}
               max_entries={data.data.max_entries || 10}
