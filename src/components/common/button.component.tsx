@@ -19,11 +19,7 @@ const Button: React.FC<ButtonProps> = ({
     secondary:
       'flex w-full h-12 items-center justify-center  border-2 border-primary-300 rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50',
     outline:
-<<<<<<< HEAD
-      "flex w-full  items-center justify-center border border-input bg-white rounded-lg p-2 hover:bg-accent hover:text-accent-foreground",
-=======
       "flex w-full h-12 items-center justify-center border border-input bg-white rounded-lg p-2 hover:bg-accent hover:text-accent-foreground",
->>>>>>> 21d503e7be059d60f83df89b844974c8e4104049
     ghost: "flex hover:bg-primary-300 focus-visible:bg-primary-300  flex w-full  items-center justify-center border border-input bg-white rounded-lg p-2 ",
   };
   return (

@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 import { PaymentStatus } from '@/models/oreders';
->>>>>>> 21d503e7be059d60f83df89b844974c8e4104049
 import axios, { AxiosRequestConfig } from 'axios';
 const baseURL = import.meta.env.VITE_REACT_APP_BASEURL;
 
@@ -26,8 +23,6 @@ orderInstance.interceptors.request.use((request: any) => {
   return updateHeader(request);
 });
 
-<<<<<<< HEAD
-=======
 export async function updateStatusPayment(url: string, { arg }: { arg: { status: PaymentStatus }}) {
   const token = localStorage.getItem('access_token');
   return fetch(`${baseURL}/orders/api${url}`, {
@@ -40,7 +35,6 @@ export async function updateStatusPayment(url: string, { arg }: { arg: { status:
   }).then(res => res.json())
 }
 
->>>>>>> 21d503e7be059d60f83df89b844974c8e4104049
 export const ordersFetcher = (url: string) =>
 orderInstance.get(url).then((res) => res.data);
 
