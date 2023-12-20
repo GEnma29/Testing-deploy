@@ -92,7 +92,7 @@ const EntryForm: React.FC<{
         // })
       };
       sendData(data);
-      console.log(values);
+      //console.log(values);
     };
     const validationSchema = object({
       name: string().required(),
