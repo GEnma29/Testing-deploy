@@ -26,7 +26,7 @@ const DatailsLayout: React.FC = () => {
     const navigate = useNavigate();
     const { role } = userStore((state) => state);
     console.log('role', role);
-    console.log('role', role.funkart[0] === 'admin');
+    console.log('role', role.public[0] === 'admin');
     const { paymentId } = useParams()
 
     // goTo
@@ -52,7 +52,7 @@ const DatailsLayout: React.FC = () => {
     // update payment
     const { trigger, isMutating } = useSWRMutation(`/payments/${paymentId}`, updateStatusPayment, /* options */)
     const aprrovePayment = async () => {
-        if (role.funkart[0] !== 'admin') return null
+        if (role.public[0] !== 'admin') return null
         try {
             const result = await trigger({ status: PaymentStatus.COMPLETED }, /* options */)
             if (!!result.data) {
@@ -72,7 +72,7 @@ const DatailsLayout: React.FC = () => {
         }
     }
     const rejectPayment = async () => {
-        if (role.funkart[0] !== 'admin') return null
+        if (role.public[0] !== 'admin') return null
         try {
             const result = await trigger({ status: PaymentStatus.REJECTED }, /* options */)
             if (!!result.data) {
@@ -101,7 +101,7 @@ const DatailsLayout: React.FC = () => {
                         type={HeaderType.ADD}
                         textLeft='Regresar'
                         actionRight={() => { }}
-                        actionLeft={() => gotToPrivate(PrivateRoutes.DASHBOARD)}
+                        actionLeft={() => navigate(-1)}
                         title="Pago"
                     />
                     {isLoading ? <>Loading ....</> :
@@ -123,7 +123,7 @@ const DatailsLayout: React.FC = () => {
 
 
                                 />
-                                {role.funkart[0] === 'admin' && <div className='mt-4 flex flex-col lg:flex-row'>
+                                {role.public[0] === 'admin' && <div className='mt-4 flex flex-col lg:flex-row'>
                                     <Button className='' onClick={rejectPayment} variant='secondary'>Rechazar Pago</Button>
                                     <Button onClick={aprrovePayment} className=' mt-2 lg:mt-0 lg:ml-2'>Aprobar Pago</Button>
                                 </div>}

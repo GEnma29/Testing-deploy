@@ -6,6 +6,7 @@ import { ordersFetcher } from '@/services';
 import { adapterData } from '@/adapters/adapter.data';
 import { Button } from '@/components/common';
 import { userStore } from '@/stores/user.store';
+import { SnackbarUtilities } from '@/utilities';
 
 const DownloadData: React.FC = () => {
     const { role } = userStore((state) => state);
@@ -21,7 +22,10 @@ const DownloadData: React.FC = () => {
 
     // funtion to export data in an excel file
     const exportToExcel = () => {
-        if (role.funkart[0] !== 'admin') return null
+        if (role.public[0] !== 'admin') {
+            SnackbarUtilities.error('You do not have permission to download data')
+            return null
+        }
         const worksheet = XLSX.utils.json_to_sheet(tableData);
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");

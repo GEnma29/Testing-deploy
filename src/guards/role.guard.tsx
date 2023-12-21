@@ -10,6 +10,6 @@ interface Props {
 
 function RoleGuard({ rol, redirect }: Props) {
     const { role } = userStore((state) => state);
-    return role.funkart[0] === rol ? <Outlet /> : <Navigate replace to={redirect} />;
+    return role.public[0] === rol ? <Outlet /> : <Navigate replace to={redirect} />;
 }
 export default RoleGuard;

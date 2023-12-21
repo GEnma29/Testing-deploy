@@ -18,7 +18,7 @@ export default function TableLayout({ filters, table, pagination }: { filters: R
       </div>
       <div className="mt-8  flow-root">
         <div className=" -my-2 overflow-x-auto overscroll-y-none lg:overflow-x-auto sm:-mx-6  lg:-mx-4">
-          <div className="flex flex-col rounded-lg   w-[300px] lg:w-[1200px]  align-middle ">
+          <div className="flex flex-col rounded-lg   w-[20rem] md:w-[] lg:w-[1200px]  align-middle ">
             {table}
             {pagination}
           </div>

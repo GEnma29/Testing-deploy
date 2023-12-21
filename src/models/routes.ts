@@ -28,5 +28,6 @@ export const PrivateRoutes = {
 
 
 export const AnalyticsRoutes = {
+  ANALYTICS: 'analytics',
   PAYMENTS: 'payments',
 };

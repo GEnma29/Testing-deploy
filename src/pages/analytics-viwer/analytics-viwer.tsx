@@ -8,8 +8,8 @@ const PaymentDetails = lazy(() => import('../payments/payment-details.page'));
 const AnalyticsViwer = () => {
     return (
         <RoutesWithNotFound>
-            <Route path={`${AnalyticsRoutes.PAYMENTS}`} element={<Payments />} />
-            <Route path={`${AnalyticsRoutes.PAYMENTS}/:paymentId`} element={<PaymentDetails />} />
+            <Route path={`/${AnalyticsRoutes.PAYMENTS}`} element={<Payments />} />
+            <Route path={`/${AnalyticsRoutes.PAYMENTS}/:paymentId`} element={<PaymentDetails />} />
         </RoutesWithNotFound>
 
     )

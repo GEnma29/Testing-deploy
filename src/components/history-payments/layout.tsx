@@ -19,7 +19,7 @@ const PedingPaymentLayout = () => {
                         type={HeaderType.EDIT}
                         textRight={'Editar'}
                         actionRight={() => { }}
-                        actionLeft={() => gotTo(PrivateRoutes.EVENTS)}
+                        actionLeft={() => navigate(-1)}
                         textLeft="Regresar"
                         title="Historial de pagos"
                     />

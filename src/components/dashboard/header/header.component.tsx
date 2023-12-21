@@ -117,7 +117,7 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({
     },
 
   ]
-  const navigation = role.funkart[0] === 'admin' ? AllElements : analyticsNavigation
+  const navigation = role.public[0] === 'admin' ? AllElements : analyticsNavigation
 
   return (
     <div>
@@ -278,7 +278,7 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({
                 <h3 className="text-xs font-bold text-start">
                   {name} {last_name.split(' ')[0]}
                 </h3>
-                <p className="text-[10px] text-start">{role.funkart[0]}</p>
+                <p className="text-[10px] text-start">{role.public[0]}</p>
               </div>
             </div>
           </div>

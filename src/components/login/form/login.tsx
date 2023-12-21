@@ -39,6 +39,7 @@ const LoginForm: React.FC = () => {
       email: data.email,
       password: data.password,
     });
+    console.log('access_token', access_token)
     //TODO use custom hook localStorage
     localStorage.setItem('access_token', access_token);
     //persistLocalStorage<string>('access_token', access_token)
@@ -46,6 +47,7 @@ const LoginForm: React.FC = () => {
     const { secret, name, last_name, roles, email } =
       adapterAccessToken(access_token);
     // save user
+    console.log('info user', secret, name, last_name, roles, email)
     saveUser({
       secret,
       name,
