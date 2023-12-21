@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import useSWR from "swr";
 import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
 import { ordersFetcher } from "@/services";
-import { DatePickerWithRange, SelectEvent, } from "@/components/common";
+import { DatePickerWithRange, SelectEvent, Table, } from "@/components/common";
 import { DateRange } from "react-day-picker";
 import TableLayout from "../common/layout/tablet";
 import PaginationTable from "../common/pagination-table.component";
@@ -128,50 +128,7 @@ const TablePendingPayment = () => {
 
                 </div>
             } table={
-                <>
-                    {isLoading ? <p>Loading</p> :
-                        <table className="payment_table min-w-full divide-y divide-gray-100  ">
-                            <thead className=" bg-[#EBEBEB]">
-                                {table.getHeaderGroups().map((headerGroup) => (
-                                    <tr key={headerGroup.id}>
-                                        {headerGroup.headers.map((header, index) => (
-                                            <th
-                                                key={header.id}
-                                                colSpan={header.colSpan}
-                                                className="whitespace-nowrap text-center py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
-                                            >
-                                                {header.column.columnDef.header?.toString()}
-                                            </th>
-                                        ))}
-                                    </tr>
-                                ))}
-                            </thead>
-                            <tbody className="divide-y  divide-gray-100 bg-transpatent">
-                                {
-                                    table.getRowModel().rows.map((row) => {
-                                        return (
-                                            <tr key={row.id} className=" hover:bg-[#EBEBEB]">
-                                                {row.getVisibleCells().map((cell, index) => {
-                                                    return (
-                                                        <td
-                                                            key={index}
-                                                            className="whitespace-nowrap text-center px-2 py-2 text-sm text-gray-900"
-                                                        >
-                                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                                        </td>
-                                                    )
-                                                })}
-                                            </tr>
-                                        )
-
-                                    })
-                                }
-                            </tbody>
-
-                        </table>
-                    }
-
-                </>
+                <Table isLoading={isLoading} data={dataTable} columns={columns} />
             }
             pagination={
                 < PaginationTable

@@ -55,7 +55,7 @@ function App() {
                     element={<Private />}
                   />
                 </Route>
-                <Route element={<RoleGuard rol={ROLES.CASHBOX} redirect={AnalyticsRoutes.ANALYTICS} />}>
+                <Route element={<RoleGuard rol={ROLES.EVENT_ANALYTICS} redirect={AnalyticsRoutes.ANALYTICS} />}>
                   <Route
                     path={`${AnalyticsRoutes.ANALYTICS}/*`}
                     element={<Analytics />}

@@ -7,3 +7,5 @@ export { DatePickerWithRange } from './date-picker-range.component'
 export { DatePickerDemo } from './date-picker.component';
 export { Button as ButtonV, buttonVariants } from './button-variantes.component'
 export {default as SelectEvent } from './select-event.component'
+export * from './tablet';
+

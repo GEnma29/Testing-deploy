@@ -3,7 +3,7 @@ import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
 import { useNavigate, useParams } from 'react-router-dom'
 import { eventsFetcher, ordersFetcher } from '@/services'
-import { PrivateRoutes, PublicRoutes } from '@/models'
+import { PrivateRoutes, PublicRoutes, ROLES } from '@/models'
 import { updateStatusPayment } from '@/services/order.service'
 import { HeaderDashboard } from '@/components/dashboard/header'
 import Header, { HeaderType } from '@/components/common/layout/header'
@@ -52,7 +52,7 @@ const DatailsLayout: React.FC = () => {
     // update payment
     const { trigger, isMutating } = useSWRMutation(`/payments/${paymentId}`, updateStatusPayment, /* options */)
     const aprrovePayment = async () => {
-        if (role.public[0] !== 'admin') return null
+        if (role.public[0] === ROLES.EVENT_ANALYTICS) return null
         try {
             const result = await trigger({ status: PaymentStatus.COMPLETED }, /* options */)
             if (!!result.data) {
@@ -72,7 +72,7 @@ const DatailsLayout: React.FC = () => {
         }
     }
     const rejectPayment = async () => {
-        if (role.public[0] !== 'admin') return null
+        if (role.public[0] === ROLES.EVENT_ANALYTICS) return null
         try {
             const result = await trigger({ status: PaymentStatus.REJECTED }, /* options */)
             if (!!result.data) {

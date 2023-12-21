@@ -7,6 +7,7 @@ import { adapterData } from '@/adapters/adapter.data';
 import { Button } from '@/components/common';
 import { userStore } from '@/stores/user.store';
 import { SnackbarUtilities } from '@/utilities';
+import { ROLES } from '@/models';
 
 const DownloadData: React.FC = () => {
     const { role } = userStore((state) => state);
@@ -22,7 +23,7 @@ const DownloadData: React.FC = () => {
 
     // funtion to export data in an excel file
     const exportToExcel = () => {
-        if (role.public[0] !== 'admin') {
+        if (role.public[0] === ROLES.EVENT_ANALYTICS) {
             SnackbarUtilities.error('You do not have permission to download data')
             return null
         }
