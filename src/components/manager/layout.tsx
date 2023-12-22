@@ -32,7 +32,7 @@ const ManagerLayout: React.FC = () => {
                         textRight={'Añadir manager'}
                         actionRight={() => gotTo(PrivateRoutes.CREATE_MANAGER)}
                         actionLeft={() => gotTo(PrivateRoutes.EVENTS)}
-                        textLeft="Regresar"
+                        //textLeft="Regresar"
                         title="Manager"
                     />
                     {isLoading && <p>loading...</p>}

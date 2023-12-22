@@ -31,7 +31,7 @@ const ProtocolLayout: React.FC = () => {
                         textRight={'Añadir protocol'}
                         actionRight={() => gotTo(PrivateRoutes.CREATE_PROTOCOL)}
                         actionLeft={() => gotTo(PrivateRoutes.EVENTS)}
-                        textLeft="Regresar"
+                        //textLeft="Regresar"
                         title="Protocol"
                     />
                     {isLoading && <p>loading...</p>}
@@ -46,7 +46,7 @@ const ProtocolLayout: React.FC = () => {
                                         onClick={() => gotTo(`${PrivateRoutes.MANAGER}/${manager.id}`)}
                                         icon={<ProtocolIcon />}
                                         title={`${manager.first_name} ${manager.last_name}`}
-                                        description={'manager'}
+                                        description={'Protocol'}
                                         status={manager.active}
                                     />
                                 );

@@ -44,7 +44,7 @@ const EditEventLayout = () => {
           <Header
             className="lg:mb-8"
             type={HeaderType.EDIT}
-            textRight={'Editar'}
+            //textRight={'Editar'}
             actionRight={() => console.log('nothing')}
             actionLeft={() => gotTo(PrivateRoutes.EVENTS)}
             textLeft="Regresar"

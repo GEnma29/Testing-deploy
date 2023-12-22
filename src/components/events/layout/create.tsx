@@ -39,7 +39,7 @@ const CreateLayout: React.FC = () => {
         <div className="flex w-full h-full flex-col">
           <Header
             type={HeaderType.EDIT}
-            textRight={'Editar'}
+            // textRight={'Editar'}
             actionRight={() => gotTo(`${PrivateRoutes.NEW_EVENT}`)}
             actionLeft={() => gotTo(PrivateRoutes.EVENTS)}
             textLeft="Regresar"

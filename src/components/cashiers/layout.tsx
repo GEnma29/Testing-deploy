@@ -32,7 +32,7 @@ const CashierLayout: React.FC = () => {
                         textRight={'Añadir cajero'}
                         actionRight={() => gotTo(PrivateRoutes.CREATE_CASHIER)}
                         actionLeft={() => gotTo(PrivateRoutes.CASHIERS)}
-                        textLeft="Regresar"
+                        // textLeft="Regresar"
                         title="Cajeros"
                     />
                     {isLoading && <p>loading...</p>}
@@ -47,7 +47,7 @@ const CashierLayout: React.FC = () => {
                                         onClick={() => gotTo(`${PrivateRoutes.MANAGER}/${manager.id}`)}
                                         icon={<ProtocolIcon />}
                                         title={`${manager.first_name} ${manager.last_name}`}
-                                        description={'manager'}
+                                        description={'cajero'}
                                         status={manager.active}
                                     />
                                 );

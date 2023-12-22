@@ -20,7 +20,7 @@ const CreateLayout: React.FC<{
                 <div className="flex w-full items-center justify-center h-full flex-col">
                     <Header
                         type={HeaderType.EDIT}
-                        textRight={'Editar'}
+                        // textRight={'Editar'}
                         actionRight={() => { }}
                         actionLeft={() => navigate(-1)}
                         textLeft="Regresar"
