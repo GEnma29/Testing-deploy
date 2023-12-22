@@ -22,6 +22,9 @@ const ExchangeRateInput: React.FC<{
     if (!!res.data) {
       SnackbarUtilities.success('Tasa actualizada correctamente');
     }
+    if (res.code === 401) {
+      SnackbarUtilities.error('No tienes permisos para realizar esta acción');
+    }
   }
 
 
