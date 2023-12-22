@@ -51,7 +51,6 @@ const ExchangeRateForm: React.FC<{
         name="exchangeRate"
       />
       <h2 className="flex font-bold text-primary-300 text-lg">Medidor</h2>
-      <button type='submit'>Send</button>
       <ExchangeRateInput edit={edit} name="exchangeRate" />
     </Form>
   );
