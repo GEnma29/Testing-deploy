@@ -24,6 +24,7 @@ const CreateCashierUser = lazy(() => import('../cashiers/create-cashier.page'));
 const DetailsUser = lazy(() => import('../manager/details.page'));
 const Cashier = lazy(() => import('../cashiers/cashiers.page'));
 const Protocol = lazy(() => import('../protocol/protocol.page'))
+const WeAreWorkingOnIt = lazy(() => import('../not-found/working-on-it.page'))
 
 function Private() {
   return (
@@ -59,6 +60,9 @@ function Private() {
       <Route path={`${PrivateRoutes.PAYMENTS}`} element={<Payments />} />
       <Route path={`${PrivateRoutes.PAYMENTS}/:paymentId`} element={<PaymentDetails />} />
       <Route path={PrivateRoutes.PENDING_PAYMENT} element={<PendingPayment />} />
+      <Route path={PrivateRoutes.SETTINGS} element={<WeAreWorkingOnIt />} />
+      <Route path={PrivateRoutes.BALANCE} element={<WeAreWorkingOnIt />} />
+
 
     </RoutesWithNotFound>
   );

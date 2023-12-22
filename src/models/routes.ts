@@ -23,6 +23,7 @@ export const PrivateRoutes = {
   CREATE_MANAGER: 'create-manager',
   CREATE_PROTOCOL: 'create-protocol',
   USER_DETAILS: 'user-details',
+  BALANCE: 'balance',
   SETTINGS: 'settings',
 };
 

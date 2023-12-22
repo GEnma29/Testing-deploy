@@ -93,7 +93,7 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({
       icon: HistoryPayments,
       current: false,
     },
-    { name: 'Balance', href: '/balance', icon: Balance, current: false },
+    { name: 'Balance', href: PrivateRoutes.BALANCE, icon: Balance, current: false },
     {
       name: 'Tasa',
       href: PrivateRoutes.EXCHANGE_RATE,
@@ -102,7 +102,7 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({
     },
     {
       name: 'Información Personal',
-      href: '/about',
+      href: PrivateRoutes.SETTINGS,
       icon: PersonalInfo,
       current: false,
     },
