@@ -117,7 +117,7 @@ const HeaderDashboard: React.FC<{ children: React.ReactNode }> = ({
     },
 
   ]
-  const navigation = role.public[0] === 'admin' ? AllElements : analyticsNavigation
+  const navigation = role.public[0] !== ROLES.EVENT_ANALYTICS ? AllElements : analyticsNavigation
 
   return (
     <div>

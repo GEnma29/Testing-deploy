@@ -123,7 +123,7 @@ const DatailsLayout: React.FC = () => {
 
 
                                 />
-                                {role.public[0] === 'admin' && <div className='mt-4 flex flex-col lg:flex-row'>
+                                {role.public[0] !== ROLES.EVENT_ANALYTICS && <div className='mt-4 flex flex-col lg:flex-row'>
                                     <Button className='' onClick={rejectPayment} variant='secondary'>Rechazar Pago</Button>
                                     <Button onClick={aprrovePayment} className=' mt-2 lg:mt-0 lg:ml-2'>Aprobar Pago</Button>
                                 </div>}

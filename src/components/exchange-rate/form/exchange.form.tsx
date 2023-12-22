@@ -4,15 +4,17 @@ import { boolean, object, string, number, mixed } from 'yup';
 import Form from '@/components/forms/from';
 import { ControllerInput, ExchangeRateInput } from '@/components/forms/inputs';
 import { EditIcon } from '@/icons';
+import { Button } from '@/components/common';
 
 const ExchangeRateForm: React.FC<{
   exchangeRate: number;
-}> = ({ exchangeRate }) => {
+  edit: boolean;
+}> = ({ exchangeRate, edit }) => {
   const validationSchema = Object({
-    'exchange-rate': number().required('Exchange rate is required'),
+    exchangeRate: number().required('Exchange rate is required'),
   });
   const defaultValues = {
-    'exchange-rate': exchangeRate,
+    exchangeRate,
   };
   const resolver = yupResolver(validationSchema);
   const onSubmit = (data: any) => {
@@ -30,10 +32,11 @@ const ExchangeRateForm: React.FC<{
         type="number"
         startIcon={<p className="flex font-bold text-gray-300">BS</p>}
         endIcon={<EditIcon />}
-        name="exchange-rate"
+        name="exchangeRate"
       />
       <h2 className="flex font-bold text-primary-300 text-lg">Medidor</h2>
-      <ExchangeRateInput name="exchange-rate" />
+      <ExchangeRateInput name="exchangeRate" />
+      {edit && <Button className='mt-4' type='submit'>Submit</Button>}
     </Form>
   );
 };
