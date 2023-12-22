@@ -8,6 +8,8 @@ import {
   Resolver,
   FormProvider,
 } from 'react-hook-form';
+
+
 import { cn } from '@/utilities';
 interface FormProps<T extends FieldValues> {
   defaultValues: DeepPartial<T> | DefaultValues<T> | any;
@@ -24,7 +26,7 @@ export default function Form<T extends FieldValues>({
   className,
 }: FormProps<T>) {
   const methods = useForm<T>({ defaultValues, resolver, mode: 'onChange' });
-  const { handleSubmit } = methods;
+  const { handleSubmit, formState: { errors } } = methods;
 
   return (
     <FormProvider {...methods}>
@@ -33,18 +35,19 @@ export default function Form<T extends FieldValues>({
           if (React.isValidElement(child)) {
             return child.props.name
               ? React.createElement(child.type, {
-                  ...{
-                    ...child.props,
-                    // register: methods.register,
-                    control: methods.control,
-                    key: child.props.name,
-                  },
-                })
+                ...{
+                  ...child.props,
+                  // register: methods.register,
+                  control: methods.control,
+                  key: child.props.name,
+                },
+              })
               : child;
           }
 
           return null;
         })}
+        {errors && <div>{errors.root?.message}</div>}
       </form>
     </FormProvider>
   );

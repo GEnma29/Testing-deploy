@@ -3,13 +3,26 @@ import { useFormContext } from 'react-hook-form';
 import { NumericFormat } from 'react-number-format';
 import { EditIcon } from '@/icons';
 import Decimal from 'decimal.js-light'
+import { Button } from '@/components/common';
+import useSWRMutation from 'swr/mutation';
+import { updateExchangeRate } from '@/services/order.service';
+import { SnackbarUtilities } from '@/utilities';
 const ExchangeRateInput: React.FC<{
   name: string;
-}> = ({ name }) => {
+  edit: boolean;
+}> = ({ name, edit }) => {
   const { watch } = useFormContext();
-  const exchangeRate = watch(name);
+  const exchangeRate = watch<string>(name);
   const [value, setValue] = useState('0');
   const [total, seTotal] = useState('0');
+  const { trigger, isMutating } = useSWRMutation('/tasas/', updateExchangeRate)
+
+  const onSubmit = async () => {
+    const res = await trigger({ amount: Number(exchangeRate) })
+    if (!!res.data) {
+      SnackbarUtilities.success('Tasa actualizada correctamente');
+    }
+  }
 
 
   return (
@@ -35,11 +48,15 @@ const ExchangeRateInput: React.FC<{
         <span className='flex font-bold text-gray-300'>BS</span>
         <NumericFormat
           disabled
+          name='total'
           className="flex input_number  w-full appearance-none  border-none bg-transparent focus:outline-none "
           value={total}
         />
       </div>
-    </div>
+      <div>
+        {edit && < Button className='mt-4' onClick={onSubmit} >Submit</Button>}
+      </div>
+    </div >
   );
 };
 

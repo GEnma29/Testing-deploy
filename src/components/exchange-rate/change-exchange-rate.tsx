@@ -8,6 +8,9 @@ import ExchangeRateForm from './form/exchange.form';
 import useSWR from 'swr';
 import { ordersFetcher } from '@/services';
 import { adapterExchangeRate } from '@/adapters/adapter.amount';
+import useSWRMutation from 'swr/mutation';
+import { updateExchangeRate } from '@/services/order.service';
+import { SnackbarUtilities } from '@/utilities';
 
 const ChangeExchangeRate = () => {
   const navigate = useNavigate();
@@ -19,11 +22,27 @@ const ChangeExchangeRate = () => {
   const gotTo = (route: string) => {
     navigate(`/private/${route}`, { replace: true });
   };
-  const { data, isLoading } = useSWR('/tasas/endid', ordersFetcher)
+  const { data, isLoading } = useSWR('/tasas/endid', ordersFetcher, {
+    revalidateOnFocus: false,
+  })
 
   //console.log(data?.data)
   const amount = adapterExchangeRate(data?.data || [])
   //console.log('data', data?.data[0].amount)
+  const { trigger, isMutating } = useSWRMutation('/tasas', updateExchangeRate)
+
+  const onSubmit = async (data: any) => {
+    const res = await trigger(data)
+    if (!!res.data) {
+      SnackbarUtilities.success('Tasa actualizada');
+      setEdit(false);
+    }
+    if (res.code === 401) {
+      SnackbarUtilities.error('No tienes permisos para realizar esta acción');
+    }
+
+
+  }
 
   return (
     <HeaderDashboard
@@ -34,11 +53,15 @@ const ChangeExchangeRate = () => {
             textRight={edit ? 'Guardar' : 'Editar'}
             actionRight={handelEdit}
             actionLeft={() => gotTo(PrivateRoutes.EVENTS)}
-            textLeft="Regresar"
+            // textLeft="Regresar"
             title="Tasa"
           />
           <div className="flex w-full lg:w-[26rem] flex-col">
-            {isLoading ? <p>Loading</p> : <ExchangeRateForm exchangeRate={data?.data[0].amount} edit={edit} />}
+            {isLoading ? <p>Loading</p> :
+              <ExchangeRateForm
+                exchangeRate={data?.data[0].amount}
+                edit={edit}
+                changeExchangeRate={onSubmit} />}
           </div>
         </div>
       }

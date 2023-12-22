@@ -34,6 +34,17 @@ export async function updateStatusPayment(url: string, { arg }: { arg: { status:
     }
   }).then(res => res.json())
 }
+export async function updateExchangeRate(url: string, { arg }: { arg: { amount: number  }}) {
+  const token = localStorage.getItem('access_token');
+  return fetch(`${baseURL}/orders/api${url}`, {
+    method: 'POST',
+    body: JSON.stringify(arg),
+    headers:{
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    }
+  }).then(res => res.json())
+}
 
 export const ordersFetcher = (url: string) =>
 orderInstance.get(url).then((res) => res.data);

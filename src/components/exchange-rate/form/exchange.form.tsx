@@ -5,21 +5,37 @@ import Form from '@/components/forms/from';
 import { ControllerInput, ExchangeRateInput } from '@/components/forms/inputs';
 import { EditIcon } from '@/icons';
 import { Button } from '@/components/common';
+import useSWRMutation from 'swr/mutation';
+import { updateExchangeRate } from '@/services/order.service';
+import { SnackbarUtilities } from '@/utilities';
 
 const ExchangeRateForm: React.FC<{
   exchangeRate: number;
   edit: boolean;
-}> = ({ exchangeRate, edit }) => {
+  changeExchangeRate: (data: any) => void;
+}> = ({ exchangeRate, edit, changeExchangeRate }) => {
   const validationSchema = Object({
-    exchangeRate: number().required('Exchange rate is required'),
+    exchangeRate: number(),
+    // dolars: number(),
+    // total: number(),
   });
   const defaultValues = {
     exchangeRate,
   };
+  const { trigger, isMutating } = useSWRMutation('/tasas', updateExchangeRate)
+
+  const onSubmit = async (data: any) => {
+    const res = await trigger(data)
+    if (!!res.data) {
+      SnackbarUtilities.success('Tasa actualizada');
+      //setEdit(false);
+    }
+    if (res.code === 401) {
+      SnackbarUtilities.error('No tienes permisos para realizar esta acción');
+    }
+  }
+
   const resolver = yupResolver(validationSchema);
-  const onSubmit = (data: any) => {
-    console.log(data);
-  };
 
   return (
     <Form
@@ -29,14 +45,14 @@ const ExchangeRateForm: React.FC<{
       resolver={resolver}
     >
       <ControllerInput
-        type="number"
+        type='number'
         startIcon={<p className="flex font-bold text-gray-300">BS</p>}
         endIcon={<EditIcon />}
         name="exchangeRate"
       />
       <h2 className="flex font-bold text-primary-300 text-lg">Medidor</h2>
-      <ExchangeRateInput name="exchangeRate" />
-      {edit && <Button className='mt-4' type='submit'>Submit</Button>}
+      <button type='submit'>Send</button>
+      <ExchangeRateInput edit={edit} name="exchangeRate" />
     </Form>
   );
 };
